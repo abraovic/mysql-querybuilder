@@ -1,0 +1,31 @@
+{
+  "name": "abraovic/mysql-querybuilder",
+  "type": "library",
+  "description": "Build and execute mysql query",
+  "homepage": "https://github.com/abraovic/mysql-querybuilder",
+  "license": "MIT",
+  "keywords": [
+    "mysql",
+    "php",
+    "query"
+  ],
+  "authors": [
+    {
+      "name": "Ante Braovic",
+      "email": "abraovic@gmail.com",
+      "homepage": "http://antebraovic.me"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/abraovic/mysql-querybuilder/issues",
+    "source": "https://github.com/abraovic/mysql-querybuilder"
+  },
+  "require": {
+    "php": ">=5.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "abraovic\\mySqlQueryBuilder\\": "src/"
+    }
+  }
+}
