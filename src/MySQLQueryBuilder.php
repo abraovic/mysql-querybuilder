@@ -7,7 +7,6 @@ use abraovic\mySqlQueryBuilder\Services\PDOSlave;
 
 /**
  * @method setDbh($db)
- * @method slave()
  *
  * @method select($table, $columns, $where = [], $order = [], $limit = [], $special = "", $resultType = MySQLQuery::SINGLE_ROW)
  * @method update($table, $columns, $where, $custom = "")
@@ -27,22 +26,39 @@ class MySQLQueryBuilder
     private $master;
     private $slave;
 
+    /** @var MySQLQuery */
+    private $query;
+    /** @var MySQLTransaction */
+    private $transaction;
+
     function __construct(\PDO $masterDbh, PDOSlave $slaveDbh)
     {
         $this->master = $masterDbh;
         $this->slave = $slaveDbh;
+
+        $this->query = new MySQLQuery($this->master, $this->slave);
+        $this->transaction = new MySQLTransaction($this->master, $this->slave);
     }
 
     public function __call($name, $arguments)
     {
         // these are queries so MySQLQuery is init
-        $queryBuilder = new MySQLQuery($this->master, $this->slave);
-        return call_user_func_array(array($queryBuilder, $name), $arguments);
+        return call_user_func_array(array($this->query, $name), $arguments);
     }
 
     public function transaction($callable)
     {
-        $queryBuilder = new MySQLTransaction($this->master, $this->slave);
-        $queryBuilder->transaction($callable);
+        $this->transaction->transaction($callable);
+    }
+
+    /**
+     * @return MySQLQueryBuilder
+     */
+    public function slave()
+    {
+        // slave is implemented like this to return proper class
+        // which then supports auto complete - little hack hihi
+        $this->query->slave();
+        return $this;
     }
 }
