@@ -100,7 +100,7 @@ class QueryBuilder
         if ($where) {
             foreach ($where as $key => $item) {
                 if (isset($item['in'])) {
-                    if ($item['in'] == self::IN || $item['in'] == self::NOT_IN) {
+                    if ($item['in'] == self::_IN || $item['in'] == self::_NOT_IN) {
                         continue;
                     }
                 }
@@ -123,7 +123,7 @@ class QueryBuilder
                 if (!is_string($record)) {
                     $record = (string)$record;
                 }
-                if ($record != self::INCR && $record != self::DECR) {
+                if ($record != self::_INCR && $record != self::_DECR) {
                     $qh->bindValue(":" . $column, $record);
                 }
             }
@@ -171,19 +171,19 @@ class QueryBuilder
                 if ($counter < count($where) - 1) {
                     if (isset($item['logic'])) {
                         switch ($item['logic']) {
-                            case self::AND:
+                            case self::_AND:
                                 $whereString .= " AND ";
                                 break;
-                            case self::OR:
+                            case self::_OR:
                                 $whereString .= " OR ";
                                 break;
                         }
                     }
                 }
                 if (isset($item['in'])) {
-                    if ($item['in'] == self::IN) {
+                    if ($item['in'] == self::_IN) {
                         $whereString .= $key . " IN (" . $item['value'] . ")";
-                    } else if ($item['in'] == self::NOT_IN){
+                    } else if ($item['in'] == self::_NOT_IN){
                         $whereString .= $key . " NOT IN (" . $item['value'] . ")";
                     } else {
                         $whereString .= $key . " " . (isset($item['operator']) ? $item['operator'] : "=") . " :" . $binder;

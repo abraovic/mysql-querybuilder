@@ -242,10 +242,10 @@ class MySQLQuery extends QueryBuilder
             if (!is_string($record)) {
                 $record = (string)$record;
             }
-            if ($record != self::INCR && $record != self::DECR) {
+            if ($record != self::_INCR && $record != self::_DECR) {
                 $updateFields .= $column . " = :" . $column;
             } else {
-                $updateFields .= $column . " = " . $column . (($record == self::INCR) ? "+" : "-") . "1";
+                $updateFields .= $column . " = " . $column . (($record == self::_INCR) ? "+" : "-") . "1";
             }
             if ($counter < count($columns) - 1) {
                 $updateFields .= ", ";
