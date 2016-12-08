@@ -31,7 +31,7 @@ class MySQLQueryBuilder
     /** @var MySQLTransaction */
     private $transaction;
 
-    function __construct(\PDO $masterDbh, PDOSlave $slaveDbh)
+    function __construct(\PDO &$masterDbh, PDOSlave &$slaveDbh)
     {
         $this->master = $masterDbh;
         $this->slave = $slaveDbh;

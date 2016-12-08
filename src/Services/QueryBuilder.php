@@ -34,7 +34,7 @@ class QueryBuilder
 
     public $query = "";
 
-    function __construct(\PDO $masterDbh, PDOSlave $slaveDbh)
+    function __construct(\PDO &$masterDbh, PDOSlave &$slaveDbh)
     {
         $this->masterDbh = $masterDbh;
         // if there is no slave, use master connection
