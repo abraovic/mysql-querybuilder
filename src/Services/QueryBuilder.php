@@ -2,6 +2,7 @@
 namespace abraovic\mySqlQueryBuilder\Services;
 
 use abraovic\mySqlQueryBuilder\Exceptions\QueryFailedException;
+use abraovic\mySqlQueryBuilder\Handlers\PDOWrapper;
 
 class QueryBuilder
 {
@@ -21,9 +22,9 @@ class QueryBuilder
     const _IN = 1;
     const _NOT_IN = 2;
 
-    /** @var \PDO $masterDbh */
+    /** @var PDOWrapper $masterDbh */
     private $masterDbh;
-    /** @var \PDO $slaveDbh */
+    /** @var PDOSlave $slaveDbh */
     private $slaveDbh;
     private $slaveOn = 0;
 
@@ -34,7 +35,7 @@ class QueryBuilder
 
     public $query = "";
 
-    function __construct(\PDO &$masterDbh, PDOSlave &$slaveDbh)
+    function __construct(PDOWrapper &$masterDbh, PDOSlave &$slaveDbh)
     {
         $this->masterDbh = $masterDbh;
         // if there is no slave, use master connection

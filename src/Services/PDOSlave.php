@@ -1,13 +1,13 @@
 <?php
 namespace abraovic\mySqlQueryBuilder\Services;
 
-use \PDO;
+use abraovic\mySqlQueryBuilder\Handlers\PDOWrapper;
 
-class PDOSlave extends PDO
+class PDOSlave extends PDOWrapper
 {
     public $validSlave = 0;
 
-    function __construct($host, $database, $username, $passwd, $options)
+    function __construct($host, $database, $username = "", $passwd = "", $options = [])
     {
         /**
          * Select random slave host and use it to generate dsn string

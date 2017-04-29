@@ -4,6 +4,7 @@ namespace abraovic\mySqlQueryBuilder;
 use abraovic\mySqlQueryBuilder\Services\MySQLQuery;
 use abraovic\mySqlQueryBuilder\Services\MySQLTransaction;
 use abraovic\mySqlQueryBuilder\Services\PDOSlave;
+use abraovic\mySqlQueryBuilder\Handlers\PDOWrapper;
 
 /**
  * @method setDbh($db)
@@ -31,7 +32,7 @@ class MySQLQueryBuilder
     /** @var MySQLTransaction */
     private $transaction;
 
-    function __construct(\PDO &$masterDbh, PDOSlave &$slaveDbh)
+    function __construct(PDOWrapper &$masterDbh, PDOSlave &$slaveDbh)
     {
         $this->master = $masterDbh;
         $this->slave = $slaveDbh;

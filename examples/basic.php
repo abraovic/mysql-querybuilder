@@ -2,6 +2,7 @@
 require_once '../vendor/autoload.php';
 
 use abraovic\mySqlQueryBuilder\MySQLQueryBuilder;
+use abraovic\mySqlQueryBuilder\Handlers\PDOWrapper;
 
 $database = "test";
 $host = "localhost";
@@ -9,7 +10,7 @@ $username = "root";
 $passwd = "abc";
 
 $dsn = "mysql:dbname=" . $database . ";host=" . $host . ";charset=utf8mb4";
-$pdo = new \PDO($dsn, $username, $passwd);
+$pdo = new PDOWrapper($dsn, $username, $passwd);
 
 // create new qb with no slaves
 $qb = new MySQLQueryBuilder(
