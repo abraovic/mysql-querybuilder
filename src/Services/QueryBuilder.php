@@ -95,6 +95,21 @@ class QueryBuilder
         return $this->lastInsertId;
     }
 
+    /**
+     * Creates a string ready to use in query when IN is performed
+     * @param $array
+     * @param $strings
+     * @return string
+     */
+    public static function array2InString($array, $strings = false)
+    {
+        if (!$strings) {
+            return implode(", ", $array);
+        }
+
+        return "'" . implode("', '" , $array) . "'";
+    }
+
     protected function execute($query, $where = null, $columns = null)
     {
         $qh = $this->dbh->prepare($query);
