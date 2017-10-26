@@ -34,14 +34,16 @@ class PDOWrapper
         $this->username = $username;
         $this->passwd = $passwd;
         $this->options = $options;
-
-        // connect for the first time
-        $this->connect();
     }
 
     public function __call($method, $arguments)
     {
         $this->isExecuted = false;
+
+        // if query is called and there is no connection make it
+        if (!$this->dbHandler) {
+            $this->connect();
+        }
 
         do {
             try {
@@ -50,7 +52,7 @@ class PDOWrapper
                 } else {
                     throw new QueryFailedException('Undefined PDO method called');
                 }
-            } catch (\PDOException $e) {
+            } catch (\Exception $e) {
                 $eMsg = $e->getMessage();
                 // Now, if server has gone away system will try to reconnect. In any other case it will simply
                 // throw received error.
@@ -91,7 +93,7 @@ class PDOWrapper
             // I need this to get all errors as exceptions to I can catch them
             $this->dbHandler->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
             $this->isConnected = true;
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             throw new QueryFailedException('Trying to connect to DB bas failed');
         }
     }
