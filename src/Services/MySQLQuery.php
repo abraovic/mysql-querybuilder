@@ -164,6 +164,9 @@ class MySQLQuery extends QueryBuilder
 
         if ($multi) {
             $query = "INSERT INTO :table (:columns) VALUES :values";
+            if ($updateOnDUplicate) {
+                $query .= " ON DUPLICATE KEY UPDATE " . $updateOnDUplicate;
+            }
 
             foreach ($values as $items) {
                 $insertFields .= "(";
