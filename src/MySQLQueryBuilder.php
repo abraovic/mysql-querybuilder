@@ -11,7 +11,7 @@ use abraovic\mySqlQueryBuilder\Handlers\PDOWrapper;
  *
  * @method select($table, $columns, $where = [], $order = [], $limit = [], $special = "", $resultType = MySQLQuery::SINGLE_ROW)
  * @method update($table, $columns, $where, $custom = "")
- * @method insert($table, $columns, $values, $multi = false, $ignore = " ")
+ * @method insert($table, $columns, $values, $multi = false, $updateOnDUplicate = "", $ignore = " ")
  * @method delete($table, $where)
  * @method raw($query)
  *
