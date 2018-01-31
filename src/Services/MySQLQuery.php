@@ -150,10 +150,14 @@ class MySQLQuery extends QueryBuilder
         $columns,
         $values,
         $multi = false,
+        $updateOnDUplicate = "",
         $ignore = " "
     )
     {
         $query = "INSERT" . $ignore . "INTO :table (:columns) VALUES (:values)";
+        if ($updateOnDUplicate) {
+            $query .= " ON DUPLICATE KEY UPDATE " . $updateOnDUplicate;
+        }
 
         $insertFields = "";
         $counter = 0;
